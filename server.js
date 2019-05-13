@@ -1,0 +1,20 @@
+const express = require("express");
+const session = require("session");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const path = require("path");
+const app = express();
+
+const PORT = process.env.PORT || 8000;
+
+app.get("*", (req, res) => {
+  res.json("All pages");
+});
+
+app.get("/", (req, res) => {
+  res.json("Server is working on root directory");
+});
+
+app.listen(PORT, (req, res) => {
+  console.log(`Now listening on ${PORT}`);
+});
