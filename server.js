@@ -6,10 +6,16 @@ const path = require("path");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
+const db = "mongodb://localhost:27017/watson-api";
+const routes = require("./routes/routes");
 
-app.get("*", (req, res) => {
-  res.json("All pages");
-});
+mongoose
+  .connect(db)
+  .then(() => console.log("Mongo is now connected"))
+  .catch(error => console.log(error));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.json("Server is working on root directory");
@@ -18,3 +24,5 @@ app.get("/", (req, res) => {
 app.listen(PORT, (req, res) => {
   console.log(`Now listening on ${PORT}`);
 });
+
+routes(app);
