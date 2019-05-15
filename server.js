@@ -1,8 +1,11 @@
 const express = require("express");
 const session = require("session");
+const passport = require("passport");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
+const logger = require("morgan");
+const cookieParser = require("cookie-parser");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
