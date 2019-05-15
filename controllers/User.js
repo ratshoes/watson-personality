@@ -34,11 +34,11 @@ const loginUser = (req, res) => {
         res.status(422).json({ message: "That is the wrong password" });
         return;
       }
-      if(hashMatch) {
+      if (match) {
         const token = getTokenForUser({
-          username = user.email
-        })
-        res.json({message:`Token successfully passed ${token,userID}`})
+          username: user.email
+        });
+        res.json({ message: `Token successfully passed ${(token, userID)}` });
       }
     });
   });
