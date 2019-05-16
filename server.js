@@ -17,6 +17,7 @@ mongoose
   .then(() => console.log("Mongo is now connected"))
   .catch(error => console.log(error));
 
+app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
