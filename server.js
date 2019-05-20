@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 8000;
 const db = "mongodb://localhost:27017/watson-api";
 const routes = require("./routes/routes");
 
+mongoose.Promise = global.Promise;
+
 mongoose
   .connect(db)
   .then(() => console.log("Mongo is now connected"))
