@@ -84,4 +84,4 @@ UserSchema.methods.checkPassword = function(potentialPassword, cb) {
   });
 };
 
-module.exports = mongoose.model("User", UserSchema, { timestamps: true });
+module.exports = mongoose.model("User", UserSchema);

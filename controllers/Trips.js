@@ -55,3 +55,13 @@ const createTrip = (req, res) => {
       res.status(500).json({ err: err.message });
     });
 };
+
+const getOneTrip = (req, res) => {
+  const { id } = req.params;
+  Trips.findOneById(id).populate({})
+};
+
+module.exports = {
+  getAllTrips,
+  createTrip
+};

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = new mongoose.Schema();
+const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const TripsSchema = new Schema({
@@ -25,7 +25,7 @@ const TripsSchema = new Schema({
   },
   endDate: {
     type: Date,
-    required: false
+    required: true
   },
   latitude: {
     type: Number,
@@ -61,6 +61,4 @@ const TripsSchema = new Schema({
   ]
 });
 
-module.exports = mongoose.model("Trips", TripsSchema, {
-  timestamps: true
-});
+module.exports = mongoose.model("Trips", TripsSchema);
