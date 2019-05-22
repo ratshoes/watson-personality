@@ -62,3 +62,11 @@ const TripsSchema = new Schema({
 });
 
 module.exports = mongoose.model("Trips", TripsSchema);
+
+const arrays = [{ message: "dank" }, { message: "ject" }, { message: "dark" }];
+
+function awesome() {
+  for (arrays of prop) {
+    console.log(arrays);
+  }
+}

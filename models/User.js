@@ -11,19 +11,7 @@ const UserSchema = new Schema({
     required: false,
     type: String
   },
-  lastLogin: {
-    default: Date.now(),
-    required: true,
-    type: Date
-  },
-  loginCount: {
-    default: 0,
-    type: Number
-  },
-  coordinates: {
-    required: false,
-    type: [Number]
-  },
+
   email: {
     type: String,
     lowercase: true,
@@ -42,7 +30,7 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
     required: true,
-    sparse: true
+    trim: true
   },
 
   password: {
@@ -56,16 +44,14 @@ const UserSchema = new Schema({
       })
     ]
   },
-  contact: {
-    name: String,
-    number: String
+  firstName: {
+    type: String,
+    required: true
   },
-  trips: [
-    {
-      ref: "Trips",
-      type: ObjectId
-    }
-  ]
+  lastName: {
+    type: String,
+    required: true
+  }
 });
 
 UserSchema.pre("save", function(next) {
