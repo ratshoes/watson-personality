@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 
 const UserSchema = new Schema({
+
   picture: {
     required: false,
     type: String
@@ -45,13 +46,17 @@ const UserSchema = new Schema({
     ]
   },
   firstName: {
-    type: String,
-    required: true
+    type: String
   },
   lastName: {
-    type: String,
-    required: true
-  }
+    type: String
+  },
+  properties: [
+    {
+      type: ObjectId,
+      ref: "Property"
+    }
+  ]
 });
 
 UserSchema.pre("save", function(next) {

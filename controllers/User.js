@@ -4,11 +4,11 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.js");
 const { getTokenForUser, validateToken } = require("../config/auth");
 
-const createUser = (req, res) => {
-  const { email, user, password } = req.body;
-  let newUser = new User({ email, user, password });
+exports.createUser = (req, res) => {
+  const { email, user, password, firstName, lastName } = req.body;
+  let newUser = new User({ email, user, password, firstName, lastName });
   newUser.save((err, user) => {
-    if (err) res.status(400).json({ err });
+    if (err) return res.status(400).json({ err });
     const getToken = getTokenForUser({
       username: email
     });
@@ -16,7 +16,7 @@ const createUser = (req, res) => {
   });
 };
 
-const loginUser = (req, res) => {
+exports.loginUser = (req, res) => {
   const { email, password } = req.body;
   User.findOne({ email }, (err, user) => {
     if (err) {
@@ -44,15 +44,20 @@ const loginUser = (req, res) => {
   });
 };
 
-const findUser = (req, res) => {
+exports.findUser = (req, res) => {
   const { id } = req.params;
-  User.findById(id, (err, user) => {
-    if (err) return err;
-    res.status(200).json({ user: user });
-  });
+  User.findOne(id)
+    .populate("Property")
+    .exec()
+    .then(property => {
+      res.status(200).json(property);
+    })
+    .catch(err => {
+      res.status(500).json({ err: err });
+    });
 };
 
-const updateUser = (req, res) => {
+exports.updateUser = (req, res) => {
   const { id } = req.params;
   const { email, user, password } = req.body;
   let salt = 11;
@@ -69,14 +74,14 @@ const updateUser = (req, res) => {
   });
 };
 
-const getUsers = (req, res) => {
+exports.getUsers = (req, res) => {
   User.find({}, (err, user) => {
     if (err) return res.status(400).send({ err });
     res.json({ user });
   });
 };
 
-const deleteUser = (req, res) => {
+exports.deleteUser = (req, res) => {
   const { id } = req.params;
   User.findOneAndDelete(id, (err, success) => {
     if (err) return err;
@@ -84,13 +89,11 @@ const deleteUser = (req, res) => {
   });
 };
 
-const login = (req, res) => {};
-
-module.exports = {
-  createUser,
-  loginUser,
-  findUser,
-  getUsers,
-  updateUser,
-  deleteUser
+const login = (req, res, next) => {
+  if (!req.body.jsonw) {
+    // next()
+    next();
+    return;
+  }
+  console.log("middleware");
 };
